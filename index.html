@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Untuk Cindy ❤️</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{
+    background:radial-gradient(circle at top, #1b2b4a, #05070d);
+    color:white;
+    text-align:center;
+    overflow:hidden;
+    transition:background 1s;
+}
+.screen{
+    width:100vw;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+}
+.hidden{display:none;}
+button{
+    margin:15px;
+    padding:15px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    background:#ff4d6d;
+    color:white;
+}
+button:hover{background:#ff1e4d;}
+p{
+    max-width:900px;
+    font-size:18px;
+    line-height:1.7;
+}
+iframe{
+    width:90%;
+    height:70vh;
+    border-radius:15px;
+    border:none;
+}
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
+.no-btn{
+    background:#555;
+    position:absolute;
+    top:48%;
+}
+.yes-btn{
+    background:#ff7aa2;
+    position:absolute;
+    top:58%;
+}
+.star{
+    position:fixed;
+    background:white;
+    border-radius:50%;
+    opacity:0.8;
+    animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+    from{opacity:0.3;}
+    to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<!-- STARS -->
+<script>
+let stars=[];
+for(let i=0;i<120;i++){
+    const s=document.createElement("div");
+    s.className="star";
+    s.style.width=s.style.height=Math.random()*2+1+"px";
+    s.style.left=Math.random()*100+"vw";
+    s.style.top=Math.random()*100+"vh";
+    s.style.animationDuration=Math.random()*3+2+"s";
+    document.body.appendChild(s);
+    stars.push(s);
+}
+</script>
+
+<!-- SCREEN 1 -->
+<div id="start" class="screen">
+    <h1>Happy Valentine, Cindy ❤️</h1>
+    <button id="startBtn">Mulai 💖</button>
+</div>
+
+<!-- SCREEN 2 -->
+<div id="text" class="screen hidden">
+<p>
+Hay Cindy selamat hari Valentine sayangg semoga kamu menikmati apa yang telah aku persiapkan untuk kamu hehe.  
+<br><br>
+Btw aku minta maaf ya sayang kalau selama ini aku ada kurangnya bagi kamu.  
+Aku tau aku orangnya kurang peka kalau masalah percintaan,  
+tapi aku akan melakukan yang terbaik untuk kamu sayanggg hehe😁😁😁  
+<br><br>
+Karena aku akan memberikan 100% yang aku punya hanya untuk kamu sayanggg.  
+<br><br>
+Ini adalah 100% yang aku persiapkan hanya untuk kamu sayangg ❤️
+</p>
+
+<button onclick="next2()">100% yang aku persiapkan untuk kamu</button>
+</div>
+
+<!-- SCREEN 3 VIDEO -->
+<div id="video" class="screen hidden">
+<h2>Untuk Cindy ❤️</h2>
+
+<iframe 
+src="https://drive.google.com/file/d/1cCge1ymdvN9LvE8CXHgi0OpKJKlnRVzh/preview" 
+allow="autoplay">
+</iframe>
+
+<button id="lanjutBtn" class="hidden" onclick="next3()">Lanjut 💕</button>
+<p id="info">Tonton dulu video ini sampai selesai ya ❤️</p>
+
+</div>
+
+<!-- SCREEN 4 -->
+<div id="question" class="screen hidden">
+<h2 style="margin-bottom:200px;">Cindy, kamu mau nggak nemenin aku di hari Valentine ini??? 💖</h2>
+
+<button class="no-btn" id="noBtn">NO AKU ENGGAK MAU ❌</button>
+<button class="yes-btn" onclick="yes()">YES AKU MAU BANGETTT 💖</button>
+
+<p id="reply" style="margin-top:250px;font-size:22px;"></p>
+<button id="restartBtn" class="hidden" onclick="restart()">🔄 Kembali ke Awal</button>
+</div>
+
+<script>
+const startBtn=document.getElementById("startBtn");
+const noBtn=document.getElementById("noBtn");
+const restartBtn=document.getElementById("restartBtn");
+const starsEl=document.querySelectorAll(".star");
+const lanjutBtn=document.getElementById("lanjutBtn");
+const info=document.getElementById("info");
+
+startBtn.onclick=(e)=>{
+    explode(e.clientX,e.clientY);
+    setTimeout(()=>{
+        start.classList.add("hidden");
+        text.classList.remove("hidden");
+        autoFireworks=true;
+    },600);
+};
+
+function next2(){
+    text.classList.add("hidden");
+    video.classList.remove("hidden");
+
+    document.body.style.background="black";
+    autoFireworks=false;
+    starsEl.forEach(s=>s.style.display="none");
+
+    // ⏱️ TIMER TOMBOL LANJUT
+    setTimeout(()=>{
+        lanjutBtn.classList.remove("hidden");
+        info.innerText="Sekarang kamu boleh lanjut ya sayang 💖";
+    }, 1000); // 60 detik (ubah sesuai mau)
+}
+
+function next3(){
+    video.classList.add("hidden");
+    question.classList.remove("hidden");
+
+    document.body.style.background="radial-gradient(circle at top, #1b2b4a, #05070d)";
+    autoFireworks=true;
+    starsEl.forEach(s=>s.style.display="block");
+}
+
+noBtn.onclick=()=>{
+    const x=Math.random()*(window.innerWidth-150);
+    const y=Math.random()*(window.innerHeight-80);
+    noBtn.style.left=x+"px";
+    noBtn.style.top=y+"px";
+};
+
+function yes(){
+    reply.innerHTML="AKU SENENG BANGETTT 🥹❤️<br>Aku sayang kamu Cindy, forever 💞";
+    restartBtn.classList.remove("hidden");
+}
+
+function restart(){
+    location.reload();
+}
+
+// FIREWORKS
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+let particles=[];
+let autoFireworks=false;
+
+function explode(x,y){
+    for(let i=0;i<40;i++){
+        particles.push({
+            x,y,
+            dx:(Math.random()-0.5)*6,
+            dy:(Math.random()-0.5)*6,
+            life:60
+        });
+    }
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(autoFireworks && Math.random()<0.04){
+        explode(Math.random()*canvas.width,Math.random()*canvas.height);
+    }
+    particles.forEach((p,i)=>{
+        p.x+=p.dx;
+        p.y+=p.dy;
+        p.life--;
+        ctx.fillStyle="pink";
+        ctx.fillRect(p.x,p.y,3,3);
+        if(p.life<=0)particles.splice(i,1);
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
