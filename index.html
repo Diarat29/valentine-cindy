@@ -6,14 +6,19 @@
 <title>Untuk Cindy ❤️</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
 
 body{
     background:radial-gradient(circle at top, #1b2b4a, #05070d);
     color:white;
     text-align:center;
     overflow:hidden;
-    transition:background 1s;
+    transition:0.8s;
 }
 
 .screen{
@@ -26,46 +31,80 @@ body{
     padding:25px;
 }
 
-.hidden{display:none;}
+.hidden{
+    display:none;
+}
+
+h1,h2{
+    margin-bottom:20px;
+}
+
+p{
+    max-width:900px;
+    line-height:1.7;
+    font-size:16px;
+}
 
 button{
-    margin:15px;
-    padding:15px 30px;
-    font-size:18px;
+    padding:14px 28px;
+    font-size:16px;
     border:none;
     border-radius:30px;
     cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.main-btn{
     background:#ff4d6d;
     color:white;
 }
 
-button:hover{background:#ff1e4d;}
-
-p{
-    max-width:900px;
-    font-size:18px;
-    line-height:1.7;
+.main-btn:hover{
+    background:#ff1e4d;
 }
 
-/* VIDEO RESPONSIVE LANDSCAPE */
-iframe{
+/* VIDEO */
+.video-wrapper{
     width:100%;
     max-width:900px;
+    background:black;
+    padding:15px;
+    border-radius:20px;
+}
+
+iframe{
+    width:100%;
     aspect-ratio:16/9;
-    border-radius:15px;
     border:none;
+    border-radius:15px;
+}
+
+/* QUESTION BUTTONS */
+.button-container{
+    margin-top:40px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    align-items:center;
+    width:100%;
+    max-width:400px;
+    position:relative;
 }
 
 .no-btn{
     background:#555;
-    position:absolute;
-    top:48%;
+    color:white;
+    width:100%;
 }
 
 .yes-btn{
     background:#ff7aa2;
-    position:absolute;
-    top:58%;
+    color:white;
+    width:100%;
 }
 
 .star{
@@ -85,7 +124,6 @@ iframe{
 
 <body>
 
-<!-- STARS -->
 <script>
 for(let i=0;i<120;i++){
     const s=document.createElement("div");
@@ -101,7 +139,7 @@ for(let i=0;i<120;i++){
 <!-- SCREEN 1 -->
 <div id="start" class="screen">
     <h1>Happy Valentine, Cindy ❤️</h1>
-    <button onclick="next1()">Mulai 💖</button>
+    <button class="main-btn" onclick="next1()">Mulai 💖</button>
 </div>
 
 <!-- SCREEN 2 -->
@@ -117,46 +155,49 @@ Karena aku akan memberikan 100% yang aku punya hanya untuk kamu sayanggg.
 <br><br>
 Ini adalah 100% yang aku persiapkan hanya untuk kamu sayangg ❤️
 </p>
-
-<button onclick="next2()">100% yang aku persiapkan untuk kamu</button>
+<br>
+<button class="main-btn" onclick="next2()">100% yang aku persiapkan untuk kamu</button>
 </div>
 
 <!-- SCREEN 3 VIDEO -->
 <div id="video" class="screen hidden">
 <h2>Untuk Cindy ❤️</h2>
 
-<div style="background:black;padding:15px;border-radius:20px;">
-  <iframe 
-    id="ytplayer"
-    src="https://www.youtube.com/embed/9BUQJHbRZuE?enablejsapi=1&rel=0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen>
-  </iframe>
+<div class="video-wrapper">
+<iframe 
+id="ytplayer"
+src="https://www.youtube.com/embed/9BUQJHbRZuE?enablejsapi=1&rel=0"
+allow="autoplay; encrypted-media"
+allowfullscreen>
+</iframe>
 </div>
 
 <p id="info" style="margin-top:15px;">
 Tonton dulu video ini sampai selesai ya ❤️
 </p>
 
-<button id="lanjutBtn" class="hidden" onclick="next3()">
+<button id="lanjutBtn" class="main-btn hidden" onclick="next3()">
 Lanjut 💕
 </button>
 </div>
 
 <!-- SCREEN 4 -->
 <div id="question" class="screen hidden">
-<h2 style="margin-bottom:200px;">
+<h2>
 Cindy, kamu mau nggak nemenin aku di hari Valentine ini??? 💖
 </h2>
 
+<div class="button-container">
 <button class="no-btn" id="noBtn">NO AKU ENGGAK MAU ❌</button>
 <button class="yes-btn" onclick="yes()">YES AKU MAU BANGETTT 💖</button>
-
-<p id="reply" style="margin-top:250px;font-size:22px;"></p>
-<button id="restartBtn" class="hidden" onclick="restart()">🔄 Kembali ke Awal</button>
 </div>
 
-<!-- SCRIPT -->
+<p id="reply" style="margin-top:30px;font-size:20px;"></p>
+<button id="restartBtn" class="main-btn hidden" onclick="restart()" style="margin-top:20px;">
+🔄 Kembali ke Awal
+</button>
+</div>
+
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
@@ -179,10 +220,9 @@ function next3(){
 
 const noBtn=document.getElementById("noBtn");
 noBtn.onclick=()=>{
-    const x=Math.random()*(window.innerWidth-150);
-    const y=Math.random()*(window.innerHeight-80);
-    noBtn.style.left=x+"px";
-    noBtn.style.top=y+"px";
+    const x=Math.random()*200-100;
+    const y=Math.random()*200-100;
+    noBtn.style.transform=`translate(${x}px,${y}px)`;
 };
 
 function yes(){
@@ -194,9 +234,7 @@ function restart(){
     location.reload();
 }
 
-/* YOUTUBE DETECT SELESAI */
 var player;
-
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('ytplayer', {
         events: {
